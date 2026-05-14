@@ -3,7 +3,7 @@ using UnityEngine;
 public class Pusher : MonoBehaviour
 {
     public float spead = 1f;
-    public float muvePower = 5f;
+    public float movePower = 5f;
     private Vector3 startPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,6 +15,10 @@ public class Pusher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //z軸の往復移動を行う
+        float z = Mathf.Sin(Time.time * spead) * movePower;
+
+        //自身のローカル座標の位置情報に z(sin波の変動値)を加算して返す
+        this.transform.localPosition = startPosition + new Vector3(0, 0, z);
     }
 }
