@@ -13,12 +13,13 @@ public class Pusher : MonoBehaviour
     }
 
     // Update is called once per frame
+    public Rigidbody rb;
     void Update()
     {
         //z軸の往復移動を行う
         float z = Mathf.Sin(Time.time * spead) * movePower;
 
         //自身のローカル座標の位置情報に z(sin波の変動値)を加算して返す
-        this.transform.localPosition = startPosition + new Vector3(0, 0, z);
+        rb.linearVelocity = new Vector3(0, 0, z);
     }
 }
