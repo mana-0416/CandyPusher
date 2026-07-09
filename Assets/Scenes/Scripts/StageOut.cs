@@ -8,8 +8,11 @@ public class StageOut : MonoBehaviour
     public Text scoreText;
     //TextMeshProをコード上から取り扱う場合は、TextMeshProUGUI型が必要
     public TMPro.TextMeshProUGUI scoreTextTMP;
+    public AudioManager audioManager;
     void OnTriggerEnter(Collider other)
     {
+        audioManager.PlaySE();
+
         //Sccore = Score + 1;
         Score += 1;
         Debug.Log($"{Score}");
