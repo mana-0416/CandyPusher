@@ -1022,8 +1022,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c180c4f1e778f964a9f12a14c617ef8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  audioClip: {fileID: 0}
-  audioSource: {fileID: 480186030}
+  audioClips: []
+  AudioSource: {fileID: 0}
+  bgmAudioClips: []
+  bgmAudioSource: {fileID: 0}
 --- !u!1001 &544658263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1218,7 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageOut
   scoreText: {fileID: 944522746}
   scoreTextTMP: {fileID: 1717821779}
-  audioManager: {fileID: 480186032}
+  audioManager: {fileID: 0}
 --- !u!1 &637913557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f2beb3c7f93196540bcbffa9a4a19635, type: 3}

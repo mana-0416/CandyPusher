@@ -9,10 +9,20 @@ public class StageOut : MonoBehaviour
     //TextMeshProをコード上から取り扱う場合は、TextMeshProUGUI型が必要
     public TMPro.TextMeshProUGUI scoreTextTMP;
     public AudioManager audioManager;
+
     void OnTriggerEnter(Collider other)
     {
-        audioManager.PlaySE();
-
+        // もしもスコアが10点以上なら
+        if (Score >= 10)
+        {
+            // != （右辺と左辺の値が同じで無かったら）
+            if (AudioManager.instance.bgmAudioSource.clip != AudioManager.instance.bgmAudioClips[0])
+            {
+                // ->BGMを変更させる
+                AudioManager.instance.bgmAudioSource.clip = AudioManager.instance.bgmAudioClips[0];
+                AudioManager.instance.bgmAudioSource.Play();
+            }
+        }
         //Sccore = Score + 1;
         Score += 1;
         Debug.Log($"{Score}");
