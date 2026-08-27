@@ -2,48 +2,76 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public enum CoinType
+    // コインの種類
+    // 0 = 銅
+    // 1 = 銀
+    // 2 = 金
+    public int coinType;
+
+    // コインの得点
+    public int score;
+
+    // 合成したときに作るコイン
+    public GameObject nextCoinPrefab;
+
+    // 合成中かどうか
+    private bool isMerging = false;
+
+
+    // コイン同士がぶつかったとき
+    private void OnCollisionEnter(Collision collision)
     {
-        Normal,     // 通常コイン
-        Silver,     // 銀コイン
-        Gold,       // 金コイン
-        Danger,     // 危険コイン
-        Recovery    // 回復コイン
-    }
+        Debug.Log("コインが何かにぶつかりました");
+        // ぶつかった相手からCoinを探す
+        Coin otherCoin = collision.gameObject.GetComponent<Coin>();
 
-    [Header("コイン設定")]
-    [SerializeField] private CoinType coinType;
-
-    [SerializeField] private int score = 1;
-
-    [Header("特殊効果")]
-    [SerializeField] private int dangerValue = 0;
-
-    public CoinType Type => coinType;
-    public int Score => score;
-    public int DangerValue => dangerValue;
-
-    // 合成可能か
-    public bool CanMerge()
-    {
-        return coinType == CoinType.Normal ||
-               coinType == CoinType.Silver ||
-               coinType == CoinType.Gold;
-    }
-
-    // 次のコインの種類を取得
-    public CoinType GetNextCoinType()
-    {
-        switch (coinType)
+        // 相手がコインではなかったら何もしない
+        if (otherCoin == null)
         {
-            case CoinType.Normal:
-                return CoinType.Silver;
-
-            case CoinType.Silver:
-                return CoinType.Gold;
-
-            default:
-                return coinType;
+            return;
         }
+
+        // すでに合成中なら何もしない
+        if (isMerging == true || otherCoin.isMerging == true)
+        {
+            return;
+        }
+
+        // 同じ種類なら合成する
+        if (coinType == otherCoin.coinType)
+        {
+            // 金コインなら合成しない
+            if (coinType == 2)
+            {
+                return;
+            }
+
+            // 合成する
+            Merge(otherCoin);
+        }
+    }
+
+
+    // 合成処理
+    private void Merge(Coin otherCoin)
+    {
+        // 合成中にする
+        isMerging = true;
+        otherCoin.isMerging = true;
+
+        // 2つのコインの真ん中を計算
+        Vector3 mergePosition =
+            (transform.position + otherCoin.transform.position) / 2;
+
+        // 次のコインを作る
+        Instantiate(
+            nextCoinPrefab,
+            mergePosition,
+            Quaternion.identity
+        );
+
+        // 元のコインを消す
+        Destroy(gameObject);
+        Destroy(otherCoin.gameObject);
     }
 }

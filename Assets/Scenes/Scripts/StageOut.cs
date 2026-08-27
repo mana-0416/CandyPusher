@@ -12,6 +12,8 @@ public class StageOut : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        //Sccore = Score + 1;
+        Score += 1;
         // もしもスコアが10点以上なら
         if (Score >= 10)
         {
@@ -19,12 +21,10 @@ public class StageOut : MonoBehaviour
             if (AudioManager.instance.bgmAudioSource.clip != AudioManager.instance.bgmAudioClips[0])
             {
                 // ->BGMを変更させる
-                AudioManager.instance.bgmAudioSource.clip = AudioManager.instance.bgmAudioClips[0];
+                AudioManager.instance.bgmAudioSource.clip = AudioManager.instance.bgmAudioClips[1];
                 AudioManager.instance.bgmAudioSource.Play();
             }
         }
-        //Sccore = Score + 1;
-        Score += 1;
         Debug.Log($"{Score}");
         scoreText.text = $"Score: {Score}";
 
