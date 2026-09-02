@@ -13,7 +13,8 @@ public class StageOut : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Sccore = Score + 1;
-        Score += 1;
+        Coin coin = other.GetComponent<Coin>();
+        Score += coin.score;
         // もしもスコアが10点以上なら
         if (Score >= 10)
         {
