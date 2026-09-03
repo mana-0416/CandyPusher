@@ -14,6 +14,12 @@ public class StageOut : MonoBehaviour
     {
         //Sccore = Score + 1;
         Coin coin = other.GetComponent<Coin>();
+
+        if (coin == null)
+        {
+            return;
+        }
+
         Score += coin.score;
         // もしもスコアが10点以上なら
         if (Score >= 10)
@@ -29,7 +35,6 @@ public class StageOut : MonoBehaviour
         Debug.Log($"{Score}");
         scoreText.text = $"Score: {Score}";
 
-        scoreTextTMP.text = $"{Score}";
         Debug.Log($"{other.name}がすり抜けました");
         Destroy(other.gameObject);
     }

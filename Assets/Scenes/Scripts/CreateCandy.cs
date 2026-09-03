@@ -12,6 +12,20 @@ public class crea : MonoBehaviour
     //生成したいオブジェクトを変数として定義
     [SerializeField]
     private GameObject candyPrefab;
+    public Transform spawnPoint;
+
+    public void OnReceiveClick()
+    {
+        if (candyPrefab != null && spawnPoint != null)
+        {
+            Instantiate(candyPrefab, spawnPoint.position, Quaternion.identity);
+            Debug.Log("キャンディを生成したよ");
+        }
+        else
+        {
+            Debug.LogWarning("candyPrefabまたはspwnPointがセットされていません!");
+        }
+    }
 
     //スペースが押された時の判定
 
